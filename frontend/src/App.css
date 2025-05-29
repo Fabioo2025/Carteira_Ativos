@@ -1,38 +1,192 @@
-.App {
-    text-align: center;
+/* Investment Tracker Custom Styles */
+
+.portfolio-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.profit-positive {
+  color: #10b981;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.profit-negative {
+  color: #ef4444;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
+.asset-card {
+  transition: transform 0.2s ease-in-out;
+}
+
+.asset-card:hover {
+  transform: translateY(-2px);
+}
+
+.operation-badge-buy {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.operation-badge-sell {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.floating-action-button {
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.floating-action-button:hover {
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+.darf-calculation-card {
+  border-left: 4px solid #3b82f6;
+  background: linear-gradient(to right, #f8fafc, #ffffff);
+}
+
+.tax-exempt {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tax-due {
+  background-color: #fef3c7;
+  color: #92400e;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Custom scrollbar for tables */
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Modal animations */
+.modal-backdrop {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Brazilian currency input styling */
+.currency-input {
+  text-align: right;
+  font-family: 'Courier New', monospace;
+}
+
+/* Dashboard cards hover effects */
+.summary-card {
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.summary-card:hover {
+  border-color: #e2e8f0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Asset type badges */
+.asset-type-acao {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.asset-type-etf {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.asset-type-fii {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.asset-type-bdr {
+  background-color: #f3e8ff;
+  color: #6b21a8;
+}
+
+.asset-type-opcao {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.asset-type-cripto {
+  background-color: #ffd6cc;
+  color: #c05621;
+}
+
+/* Loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .summary-card {
+    padding: 1rem;
+  }
+  
+  .mobile-stack {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-}
-
-.App-link {
-    color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    gap: 0.5rem;
+  }
+  
+  .mobile-full-width {
+    width: 100%;
+  }
 }
