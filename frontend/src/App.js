@@ -98,6 +98,7 @@ const App = () => {
       // Refresh data
       fetchOperations();
       fetchPortfolioSummary();
+      fetchDarfPreview();
     } catch (error) {
       console.error('Error creating operation:', error);
       alert('Erro ao criar operação');
