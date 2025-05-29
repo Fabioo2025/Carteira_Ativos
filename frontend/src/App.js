@@ -451,7 +451,7 @@ const App = () => {
       <div className="bg-white rounded-lg p-6 w-full max-w-sm mx-4">
         <h3 className="text-lg font-semibold mb-4">Nova Operação</h3>
         
-        <form onSubmit={handleSubmitOperation} className="space-y-4">
+        <form onSubmit={handleSubmitOperation} className="space-y-3">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Código do Ativo
