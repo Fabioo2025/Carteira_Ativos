@@ -347,6 +347,7 @@ async def calculate_darf(year: int, month: int):
         total_profit = data["total_sales"] * 0.1  # Simplified 10% profit for demo
         
         # Apply tax rules
+        tax_calc = {}
         if trade_category == "day_trade":
             tax_calc = TaxCalculationService.calculate_day_trade_tax(total_profit)
         elif asset_type == "cripto":
@@ -355,6 +356,10 @@ async def calculate_darf(year: int, month: int):
             tax_calc = TaxCalculationService.calculate_fii_tax(total_profit)
         else:  # swing trade for ações, ETFs, BDRs
             tax_calc = TaxCalculationService.calculate_swing_trade_tax(data["total_sales"], total_profit)
+        
+        # Ensure ir_retained is always present
+        if 'ir_retained' not in tax_calc:
+            tax_calc['ir_retained'] = 0.0
         
         darf_calc = DARFCalculation(
             month=f"{year}-{month:02d}",
