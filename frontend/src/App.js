@@ -111,6 +111,7 @@ const App = () => {
         await axios.delete(`${API_BASE_URL}/api/operations/${operationId}`);
         fetchOperations();
         fetchPortfolioSummary();
+        fetchDarfPreview();
       } catch (error) {
         console.error('Error deleting operation:', error);
       }
