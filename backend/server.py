@@ -236,6 +236,12 @@ async def get_operations(asset_code: Optional[str] = None, asset_type: Optional[
         query["asset_type"] = asset_type
     
     operations = await db.operations.find(query).to_list(1000)
+    
+    # Convert MongoDB documents to serializable format
+    for operation in operations:
+        if '_id' in operation:
+            del operation['_id']  # Remove MongoDB ObjectId
+    
     return operations
 
 @app.delete("/api/operations/{operation_id}")
