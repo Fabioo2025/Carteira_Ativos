@@ -32,6 +32,17 @@ const App = () => {
     fetchDarfPreview();
   }, []);
 
+  const fetchDarfPreview = async () => {
+    try {
+      const currentMonth = new Date().getMonth() + 1;
+      const currentYear = new Date().getFullYear();
+      const response = await axios.get(`${API_BASE_URL}/api/darf/calculate/${currentYear}/${currentMonth}`);
+      setDarfPreview(response.data.calculations || []);
+    } catch (error) {
+      console.error('Error fetching DARF preview:', error);
+    }
+  };
+
   const fetchOperations = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/operations`);
