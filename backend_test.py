@@ -46,6 +46,30 @@ class BrazilianInvestmentTrackerTester:
             print(f"❌ Failed - Error: {str(e)}")
             return False, {}
 
+    def test_health_check(self):
+        """Test the health check endpoint"""
+        success, response = self.run_test(
+            "Health Check",
+            "GET",
+            "api/health",
+            200
+        )
+        if success:
+            print(f"Health check response: {response}")
+        return success
+
+    def test_get_asset_types(self):
+        """Test getting available asset types"""
+        success, response = self.run_test(
+            "Get Asset Types",
+            "GET",
+            "api/assets/types",
+            200
+        )
+        if success:
+            print(f"Asset types: {response}")
+        return success
+
     def test_transaction_history_total_display(self):
         """Test that the total column displays correctly for purchase and sale operations"""
         success, operations = self.test_get_operations()
@@ -100,27 +124,6 @@ class BrazilianInvestmentTrackerTester:
             else:
                 print("No sales operations found for the current month")
                 
-        return success
-
-    def test_health_check(self):
-        """Test the health check endpoint"""
-        success, response = self.run_test(
-            "Health Check",
-            "GET",
-            "api/health",
-            200
-        )
-        if success:
-            print(f"Health check response: {response}")
-        return success
-        success, response = self.run_test(
-            "Get Asset Types",
-            "GET",
-            "api/assets/types",
-            200
-        )
-        if success:
-            print(f"Asset types: {response}")
         return success
 
     def test_create_operation(self, operation_data):
@@ -325,8 +328,14 @@ def main():
     
     # Test getting operations
     tester.test_get_operations()
-    tester.test_get_operations(asset_code="PETR4")
-    tester.test_get_operations(asset_type="cripto")
+    
+    # Test specific improvements
+    print("\n🔍 Testing specific improvements:")
+    print("1. Transaction History Total Display Fix")
+    tester.test_transaction_history_total_display()
+    
+    print("\n2. DARF Preview on Dashboard")
+    tester.test_darf_preview_on_dashboard()
     
     # Test portfolio summary
     tester.test_portfolio_summary()
