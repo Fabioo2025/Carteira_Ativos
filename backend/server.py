@@ -133,6 +133,7 @@ class TaxCalculationService:
             "tax_rate": TAX_RATE,
             "tax_due": tax_due,
             "exemption_applied": False,
+            "ir_retained": 0.0,
             "net_tax_due": tax_due
         }
     
