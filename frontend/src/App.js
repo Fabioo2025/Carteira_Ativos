@@ -10,6 +10,7 @@ const App = () => {
   const [portfolioSummary, setPortfolioSummary] = useState(null);
   const [showOperationModal, setShowOperationModal] = useState(false);
   const [darf, setDarf] = useState([]);
+  const [darfPreview, setDarfPreview] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
