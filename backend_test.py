@@ -102,8 +102,17 @@ class BrazilianInvestmentTrackerTester:
                 
         return success
 
-    def test_get_asset_types(self):
-        """Test getting available asset types"""
+    def test_health_check(self):
+        """Test the health check endpoint"""
+        success, response = self.run_test(
+            "Health Check",
+            "GET",
+            "api/health",
+            200
+        )
+        if success:
+            print(f"Health check response: {response}")
+        return success
         success, response = self.run_test(
             "Get Asset Types",
             "GET",
