@@ -29,6 +29,7 @@ const App = () => {
   useEffect(() => {
     fetchOperations();
     fetchPortfolioSummary();
+    fetchDarfPreview();
   }, []);
 
   const fetchOperations = async () => {
