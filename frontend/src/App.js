@@ -196,6 +196,51 @@ const App = () => {
         )}
       </div>
 
+      {/* DARF Preview */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h3 className="text-lg font-semibold mb-4">
+          Preview DARF - {new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}
+        </h3>
+        {darfPreview && darfPreview.length > 0 ? (
+          <div className="space-y-3">
+            {darfPreview.map((calculation, index) => (
+              <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <span className="font-medium">{getAssetTypeLabel(calculation.asset_type)}</span>
+                  <p className="text-sm text-gray-500">
+                    Vendas: {formatCurrency(calculation.total_sales)}
+                  </p>
+                </div>
+                <div className="text-right">
+                  {calculation.exemption_applied ? (
+                    <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                      Isento
+                    </span>
+                  ) : (
+                    <div>
+                      <span className="font-bold text-blue-600">
+                        {formatCurrency(calculation.net_tax_due)}
+                      </span>
+                      <p className="text-xs text-gray-500">
+                        {(calculation.tax_rate * 100).toFixed(1)}%
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+            <div className="border-t pt-3 flex justify-between items-center font-semibold">
+              <span>Total DARF:</span>
+              <span className="text-xl text-blue-600">
+                {formatCurrency(darfPreview.reduce((sum, calc) => sum + calc.net_tax_due, 0))}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <p className="text-gray-500">Nenhum imposto devido para este mês</p>
+        )}
+      </div>
+
       {/* Floating Action Button */}
       <button
         onClick={() => setShowOperationModal(true)}
