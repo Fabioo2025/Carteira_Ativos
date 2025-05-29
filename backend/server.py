@@ -335,10 +335,16 @@ async def calculate_darf(year: int, month: int):
     # Calculate profit for each group
     darf_calculations = []
     for key, data in grouped_sales.items():
-        asset_type, trade_category = key.split('_')
+        # Handle key splitting more safely
+        key_parts = key.split('_')
+        if len(key_parts) >= 2:
+            asset_type = key_parts[0]
+            trade_category = '_'.join(key_parts[1:])  # Join remaining parts for 'swing_trade'
+        else:
+            continue  # Skip malformed keys
         
         # Calculate profit (simplified - would need cost basis calculation)
-        total_profit = 0  # This should be calculated based on cost basis
+        total_profit = data["total_sales"] * 0.1  # Simplified 10% profit for demo
         
         # Apply tax rules
         if trade_category == "day_trade":
