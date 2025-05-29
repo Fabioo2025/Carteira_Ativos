@@ -261,7 +261,10 @@ const App = () => {
                     {formatCurrency(operation.unit_price)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {formatCurrency(operation.total_cost)}
+                    {operation.operation_type === 'venda' 
+                      ? formatCurrency(operation.quantity * operation.unit_price)
+                      : formatCurrency(operation.total_cost)
+                    }
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {formatDate(operation.operation_date)}
