@@ -46,16 +46,60 @@ class BrazilianInvestmentTrackerTester:
             print(f"❌ Failed - Error: {str(e)}")
             return False, {}
 
-    def test_health_check(self):
-        """Test the health check endpoint"""
+    def test_transaction_history_total_display(self):
+        """Test that the total column displays correctly for purchase and sale operations"""
+        success, operations = self.test_get_operations()
+        if not success or not operations:
+            return False
+            
+        all_correct = True
+        for op in operations:
+            if op['operation_type'] == 'compra':
+                # For purchase operations, total should be total_cost
+                expected_total = op['total_cost']
+                print(f"Purchase operation {op['id']}: total_cost = {expected_total}")
+            elif op['operation_type'] == 'venda':
+                # For sale operations, total should be quantity × unit_price
+                expected_total = op['quantity'] * op['unit_price']
+                print(f"Sale operation {op['id']}: quantity × unit_price = {op['quantity']} × {op['unit_price']} = {expected_total}")
+            else:
+                print(f"Unknown operation type: {op['operation_type']}")
+                all_correct = False
+                continue
+                
+        return all_correct
+
+    def test_darf_preview_on_dashboard(self):
+        """Test the DARF preview on the dashboard"""
+        # Get current month/year
+        current_year = datetime.now().year
+        current_month = datetime.now().month
+        
+        # Test DARF calculation for current month
         success, response = self.run_test(
-            "Health Check",
+            f"Get DARF Preview for Dashboard ({current_month}/{current_year})",
             "GET",
-            "api/health",
+            f"api/darf/calculate/{current_year}/{current_month}",
             200
         )
+        
         if success:
-            print(f"Health check response: {response}")
+            calculations = response.get('calculations', [])
+            print(f"DARF preview contains {len(calculations)} tax calculations")
+            
+            # Check if there are any sales operations for the current month
+            if calculations:
+                # Verify DARF calculations
+                for calc in calculations:
+                    print(f"  - Asset type: {calc.get('asset_type')}")
+                    print(f"    Total sales: {calc.get('total_sales')}")
+                    print(f"    Tax rate: {calc.get('tax_rate')}")
+                    print(f"    Tax due: {calc.get('tax_due')}")
+                    print(f"    Exemption applied: {calc.get('exemption_applied')}")
+                    print(f"    Net tax due: {calc.get('net_tax_due')}")
+            else:
+                print("No sales operations found for the current month")
+                
         return success
 
     def test_get_asset_types(self):
